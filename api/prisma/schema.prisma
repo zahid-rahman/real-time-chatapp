@@ -13,9 +13,37 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id       String @id @default(uuid())
-  email    String @unique
-  password String
-  username String
+model users {
+  id              String            @id @default(uuid())
+  email           String            @unique
+  password        String
+  username        String
+  user_chat_rooms user_chat_rooms[]
+  messages        messages[]
+}
+
+model chat_rooms {
+  id              String            @id @default(uuid())
+  name            String
+  created_at      DateTime          @default(now())
+  user_chat_rooms user_chat_rooms[]
+  messages        messages[]
+}
+
+model user_chat_rooms {
+  id         String      @id @default(uuid())
+  userId     String
+  chatroomId String
+  users      users?      @relation(fields: [userId], references: [id])
+  chat_rooms chat_rooms? @relation(fields: [chatroomId], references: [id])
+}
+
+model messages {
+  id         String      @id @default(uuid())
+  content    String
+  sent_at    DateTime
+  users      users?      @relation(fields: [usersId], references: [id])
+  usersId    String?
+  chat_rooms chat_rooms? @relation(fields: [chatroomId], references: [id])
+  chatroomId String?
 }

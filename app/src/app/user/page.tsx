@@ -1,5 +1,7 @@
 import { auth } from "@/@chatapp/configs/auth";
-import Logout from "@/modules/auth/signin/Logout";
+import { customTheme } from "@/@chatapp/configs/theme";
+import UserPage from "@/modules/user/main/index.page";
+import { Button, Flowbite } from "flowbite-react";
 import { SessionProvider } from "next-auth/react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -9,5 +11,9 @@ export default async function UserMainPage() {
 
   if (!session?.user) redirect("/auth/signin");
 
-  return <div></div>;
+  return (
+    <>
+      <UserPage />
+    </>
+  );
 }

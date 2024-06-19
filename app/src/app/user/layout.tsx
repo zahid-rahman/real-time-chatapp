@@ -1,4 +1,6 @@
 import AppNavbar from "@/@chatapp/components/AppNavbar";
+import { customTheme, themeColor } from "@/@chatapp/configs/theme";
+import { Flowbite } from "flowbite-react";
 import { SessionProvider } from "next-auth/react";
 
 export default function RootLayout({
@@ -7,9 +9,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SessionProvider>
-      <AppNavbar />
-      <main>{children}</main>
-    </SessionProvider>
+    <Flowbite theme={{ theme: customTheme }}>
+      <SessionProvider>
+        <AppNavbar />
+        <main
+          style={{
+            backgroundColor: themeColor.body,
+            height: "100vh",
+          }}
+        >
+          {children}
+        </main>
+      </SessionProvider>
+    </Flowbite>
   );
 }

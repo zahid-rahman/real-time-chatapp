@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  pgdb:
+    image: postgres:16.3-alpine
+    container_name: chatify_db
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - ./chatify_db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_USER=chatapp
+      - POSTGRES_DB=chatapp_db
+    expose:
+    - "5432"
+
+  adminer:
+    image: adminer:latest
+    container_name: adminer_viewer
+    restart: always
+    ports:
+      - 4000:8080
+    expose:
+    - "4000"
